@@ -70,6 +70,18 @@ button {
     margin-top: 25px;
     font-size: 20px;
     color: #ff4d6d;
+    line-height: 1.4;
+}
+
+.photo {
+    display: none;
+    margin-top: 20px;
+}
+
+.photo img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 </style>
 </head>
@@ -79,18 +91,20 @@ button {
     <h1>I’m Really Sorry 💔</h1>
 
     <p>
-        I know I messed up, and I truly regret it.  
-        You mean a lot to me, and I hope you can forgive me.
+        I am so sorry baby. Please forgive me 🙏💕
     </p>
 
     <div class="buttons">
-        <button id="yesBtn">I Accept Your Apology 🤍</button>
-        <button id="noBtn">No 😐</button>
+        <button id="yesBtn">I Accept Your Apology ❤️</button>
+        <button id="noBtn">No😐</button>
     </div>
 
     <div class="message" id="message">
-        Thank you for forgiving me 🥺❤️  
-        I promise to do better.
+        Thank you meri Kammo 😘😘😘😘
+    </div>
+
+    <div class="photo" id="photo">
+        <img src="img.jpeg" alt="Us ❤️">
     </div>
 </div>
 
@@ -98,25 +112,23 @@ button {
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
+const photo = document.getElementById("photo");
 
 let moved = false;
 
 noBtn.addEventListener("mouseenter", () => {
     if (moved) return;
-
     moved = true;
 
-    // Move NO button left or right safely
     const direction = Math.random() > 0.5 ? -120 : 120;
     noBtn.style.transform = `translateX(${direction}px)`;
 
-    setTimeout(() => {
-        moved = false;
-    }, 300);
+    setTimeout(() => moved = false, 300);
 });
 
 yesBtn.addEventListener("click", () => {
     message.style.display = "block";
+    photo.style.display = "block";
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
 });
