@@ -3,85 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <title>I’m Sorry ❤️‍🩹</title>
+
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #ffd1dc, #ffe6eb);
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffd1dc, #ffe6eb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
 
-    .card {
-        background: white;
-        padding: 40px 60px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        max-width: 500px;
-    }
+.card {
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
 
-    h1 {
-        color: #ff4d6d;
-        margin-bottom: 20px;
-    }
+h1 {
+    color: #ff4d6d;
+}
 
-    p {
-        font-size: 18px;
-        color: #555;
-        margin-bottom: 30px;
-    }
+p {
+    font-size: 17px;
+    color: #555;
+    margin: 20px 0 30px;
+}
 
-    .buttons {
-        position: relative;
-        height: 100px;
-    }
+.buttons {
+    position: relative;
+    height: 120px;
+}
 
-    button {
-        padding: 14px 32px;
-        font-size: 18px;
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-    }
+button {
+    padding: 14px 30px;
+    font-size: 17px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
 
-    #yesBtn {
-        background: #ff4d6d;
-        color: white;
-        margin-right: 20px;
-    }
+#yesBtn {
+    background: #ff4d6d;
+    color: white;
+    position: absolute;
+    left: 40px;
+    bottom: 20px;
+}
 
-    #yesBtn:hover {
-        transform: scale(1.1);
-    }
+#noBtn {
+    background: #ccc;
+    color: #333;
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    transition: transform 0.2s ease;
+}
 
-    #noBtn {
-        background: #ddd;
-        color: #444;
-        position: absolute;
-        left: 200px;
-        top: 0;
-    }
-
-    .message {
-        margin-top: 30px;
-        font-size: 20px;
-        color: #ff4d6d;
-        display: none;
-        line-height: 1.5;
-    }
+.message {
+    display: none;
+    margin-top: 25px;
+    font-size: 20px;
+    color: #ff4d6d;
+}
 </style>
 </head>
-<body>
 
+<body>
 <div class="card">
     <h1>I’m Really Sorry 💔</h1>
 
     <p>
-        Please forgive me sweety 🙏💕
+        I know I messed up, and I truly regret it.  
+        You mean a lot to me, and I hope you can forgive me.
     </p>
 
     <div class="buttons">
@@ -90,59 +89,38 @@
     </div>
 
     <div class="message" id="message">
-        TY KAMMO BABY 😘😘😘
+        Thank you for forgiving me 🥺❤️  
+        I promise to do better.
     </div>
 </div>
 
 <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const message = document.getElementById("message");
-    const buttonsDiv = document.querySelector(".buttons");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
 
-    const MIN_DISTANCE = 120; // distance from YES button
+let moved = false;
 
-    function getDistance(x1, y1, x2, y2) {
-        return Math.hypot(x2 - x1, y2 - y1);
-    }
+noBtn.addEventListener("mouseenter", () => {
+    if (moved) return;
 
-    noBtn.addEventListener("mouseenter", () => {
-        const containerRect = buttonsDiv.getBoundingClientRect();
-        const yesRect = yesBtn.getBoundingClientRect();
+    moved = true;
 
-        const maxX = buttonsDiv.offsetWidth - noBtn.offsetWidth;
-        const maxY = buttonsDiv.offsetHeight - noBtn.offsetHeight;
+    // Move NO button left or right safely
+    const direction = Math.random() > 0.5 ? -120 : 120;
+    noBtn.style.transform = `translateX(${direction}px)`;
 
-        let x, y, distance;
+    setTimeout(() => {
+        moved = false;
+    }, 300);
+});
 
-        do {
-            x = Math.random() * maxX;
-            y = Math.random() * maxY;
-
-            const noCenterX = containerRect.left + x + noBtn.offsetWidth / 2;
-            const noCenterY = containerRect.top + y + noBtn.offsetHeight / 2;
-
-            const yesCenterX = yesRect.left + yesRect.width / 2;
-            const yesCenterY = yesRect.top + yesRect.height / 2;
-
-            distance = getDistance(
-                noCenterX, noCenterY,
-                yesCenterX, yesCenterY
-            );
-        } while (distance < MIN_DISTANCE);
-
-        noBtn.style.left = `${x}px`;
-        noBtn.style.top = `${y}px`;
-    });
-
-    yesBtn.addEventListener("click", () => {
-        message.style.display = "block";
-        yesBtn.style.display = "none";
-        noBtn.style.display = "none";
-    });
+yesBtn.addEventListener("click", () => {
+    message.style.display = "block";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
+});
 </script>
-
-
 
 </body>
 </html>
