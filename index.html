@@ -100,28 +100,39 @@
     const message = document.getElementById("message");
     const buttonsDiv = document.querySelector(".buttons");
 
-    let moved = false;
+    const MIN_DISTANCE = 120; // distance from YES button
+
+    function getDistance(x1, y1, x2, y2) {
+        return Math.hypot(x2 - x1, y2 - y1);
+    }
 
     noBtn.addEventListener("mouseenter", () => {
-        if (moved) return;
+        const containerRect = buttonsDiv.getBoundingClientRect();
+        const yesRect = yesBtn.getBoundingClientRect();
 
-        const containerWidth = buttonsDiv.offsetWidth;
-        const containerHeight = buttonsDiv.offsetHeight;
+        const maxX = buttonsDiv.offsetWidth - noBtn.offsetWidth;
+        const maxY = buttonsDiv.offsetHeight - noBtn.offsetHeight;
 
-        const maxX = containerWidth - noBtn.offsetWidth;
-        const maxY = containerHeight - noBtn.offsetHeight;
+        let x, y, distance;
 
-        const x = Math.random() * maxX;
-        const y = Math.random() * maxY;
+        do {
+            x = Math.random() * maxX;
+            y = Math.random() * maxY;
+
+            const noCenterX = containerRect.left + x + noBtn.offsetWidth / 2;
+            const noCenterY = containerRect.top + y + noBtn.offsetHeight / 2;
+
+            const yesCenterX = yesRect.left + yesRect.width / 2;
+            const yesCenterY = yesRect.top + yesRect.height / 2;
+
+            distance = getDistance(
+                noCenterX, noCenterY,
+                yesCenterX, yesCenterY
+            );
+        } while (distance < MIN_DISTANCE);
 
         noBtn.style.left = `${x}px`;
         noBtn.style.top = `${y}px`;
-
-        moved = true;
-
-        setTimeout(() => {
-            moved = false;
-        }, 300);
     });
 
     yesBtn.addEventListener("click", () => {
@@ -130,6 +141,7 @@
         noBtn.style.display = "none";
     });
 </script>
+
 
 
 </body>
